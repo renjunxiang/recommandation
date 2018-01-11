@@ -46,7 +46,7 @@ class rsm():#recommendation similar matrix
         data_raw = data_raw.iloc[:, 1:]  # remove first column:user_id
         recommend_matrix=self.recommend_matrix()
         user_data=recommend_matrix.loc[user_id,:]
-        result=user_data[data_raw.loc[user_id,:]!=0].sort_values(ascending=False)[0:num]
+        result=user_data[data_raw.loc[user_id,:]==0].sort_values(ascending=False)[0:num]
         return result
 
 if __name__ == '__main__':
