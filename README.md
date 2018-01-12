@@ -1,2 +1,1 @@
 # machine-learning
-little study
