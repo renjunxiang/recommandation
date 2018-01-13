@@ -12,6 +12,6 @@ numpy=1.13.1<br>
 ![ex1](https://github.com/renjunxiang/machine-learning/blob/master/recommandation/similar%20matrix%20result.png)
 ### ALS矩阵分解:ALS.py
 原始数据为用户-物品打分或者是否购买矩阵(m\*n)。通过矩阵分解，将m\*n的矩阵分解为m\*k的用户矩阵和k\*n的物品矩阵，(m\*k)*(k\*n)=m\*n的推荐矩阵，从而从而得到用户对每个物品的购买期望(填充了原来的缺失值或0值）。ALS的使用范围要大于相似度矩阵，且精确性要更高，矩阵分解可以直观的得到用户特征和物品特征。<br>
-![ex2](https://github.com/renjunxiang/machine-learning/blob/master/recommandation/similar%20matrix%20result.png)
+![ex2](https://github.com/renjunxiang/machine-learning/blob/master/recommandation/ALS矩阵分解.png)
 ### ALS矩阵分解在pyspark上的现成模块
 
