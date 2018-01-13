@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 
 class rsm():#recommendation similar matrix
-    # This model is depended on 0/1 recommend_matrix
+    # This model is depended on users' choices matrix which is 0-1 matrix
     # If user i buy product j,dataframe.loc['user_i','product_j']=1,else=0
-    # Then we calucate similar point:count(A and B)/sqrt(count(A)*count(B))
+    # Then we calucate similar score:count(A and B)/sqrt(count(A)*count(B))
     # Finally we calucate recommend matrix:similar matrix * users' choices matrix
 
     def __init__(self,data_raw):
@@ -50,7 +50,7 @@ class rsm():#recommendation similar matrix
         return result
 
 if __name__ == '__main__':
-    # user-products data
+    # users' choices matrix
     data_raw = pd.DataFrame([['user1', 1, 1, 0, 0],
                              ['user2', 1, 0, 1, 0],
                              ['user3', 0, 0, 1, 1],
@@ -59,7 +59,7 @@ if __name__ == '__main__':
                              ['user6', 0, 0, 0, 1]])
     data_raw.columns = ['user_id', 'products1', 'products2', 'products3', 'products4']
     print('raw data:\n', data_raw)
-    # model after calulate
+    # creat model
     model = rsm(data_raw=data_raw)
     print('similar_matrix:\n', model.similar_matrix())
     # similar matrix
