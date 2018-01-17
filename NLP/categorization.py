@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, HashingVectorizer
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
 from sklearn.externals import joblib
 
 
@@ -10,7 +11,7 @@ class text_classify():
     def __init__(self,
                  model_exist=False,
                  model_path=None,  # 模型路径
-                 model_name='SVM',  # SVM,KNN
+                 model_name='SVM',  # SVM,KNN,Logistic
                  hashmodel='CountVectorizer',  # 哈希方式:CountVectorizer,TfidfTransformer,HashingVectorizer
                  savemodel=False,
                  train_dataset=None,  # 训练集[[数据],[标签]]
@@ -56,7 +57,10 @@ class text_classify():
                 model = KNeighborsClassifier(n_neighbors=min(len(train_label), 5))  # 调用KNN,近邻=5
                 model.fit(train_data_hashcount, train_label)
             elif model_name == 'SVM':
-                model = SVC(kernel='linear', C=1)  # 核函数为线性,惩罚系数为1
+                model = SVC(kernel='linear', C=1.0)  # 核函数为线性,惩罚系数为1
+                model.fit(train_data_hashcount, train_label)
+            elif model_name == 'Logistic':
+                model = LogisticRegression(solver='liblinear',C=1.0)  # 核函数为线性,惩罚系数为1
                 model.fit(train_data_hashcount, train_label)
 
             if self.savemodel == True:
