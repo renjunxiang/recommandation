@@ -1,7 +1,7 @@
 ﻿# recommandation
 
 ## 语言
-Python<br>
+Python3.5<br>
 ## 依赖库
 pandas=0.21.0<br>
 numpy=1.13.1<br>
