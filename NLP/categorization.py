@@ -5,10 +5,13 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.externals import joblib
+import jieba
 
+jieba.setLogLevel('WARN')
 
 class text_classify():
     def __init__(self,
+                 language='English',
                  model_exist=False,
                  model_path=None,  # 模型路径
                  model_name='SVM',  # SVM,KNN,Logistic
@@ -16,6 +19,7 @@ class text_classify():
                  savemodel=False,
                  train_dataset=None,  # 训练集[[数据],[标签]]
                  test_data=None):  # 测试集[数据]
+        self.language=language
         self.model_exist = model_exist
         self.model_path = model_path
         self.model_name = model_name
@@ -24,9 +28,16 @@ class text_classify():
         self.train_dataset = train_dataset
         self.test_data = test_data
 
-    def data_transform(self):  # 全部数据转稀疏
+    def sentence_cut(self): #对中文进行分词处理
         train_dataset = self.train_dataset
         test_data = self.test_data
+        if self.language == 'Chinese':
+            train_dataset[0]=[' '.join(jieba.lcut(i)) for i in train_dataset[0]]
+            test_data=[' '.join(jieba.lcut(i)) for i in test_data]
+        return train_dataset,test_data
+
+    def data_transform(self):  # 全部数据转稀疏
+        train_dataset,test_data = self.sentence_cut()
         train_data, train_label = train_dataset[0], train_dataset[1]  # 分离数据和标签
         hashmodel = self.hashmodel
         if hashmodel == 'CountVectorizer':  # 只计数
@@ -77,6 +88,7 @@ class text_classify():
 
 
 if __name__ == '__main__':
+    print('example:English')
     train_dataset = [['he likes apple',
                       'he really likes apple',
                       'he hates apple',
@@ -97,4 +109,36 @@ if __name__ == '__main__':
                            'label': test_label,
                            'predict': result},
                           columns=['data', 'label', 'predict'])
-    print(result)
+    print('train data\n',
+          pd.DataFrame({'data':train_dataset[0],
+                        'label':train_dataset[1]},
+                       columns=['data','label']))
+    print('test\n',result)
+
+    print('example:Chinese')
+    train_dataset = [['国王喜欢吃苹果',
+                      '国王非常喜欢吃苹果',
+                      '国王讨厌吃苹果',
+                      '国王非常讨厌吃苹果'],
+                     [1, 1, 0, 0]]
+    print('train data\n',
+          pd.DataFrame({'data':train_dataset[0],
+                        'label':train_dataset[1]},
+                       columns=['data','label']))
+    test_data = ['涛哥喜欢吃苹果',
+                 '涛哥讨厌吃苹果',
+                 '涛哥非常喜欢吃苹果',
+                 '涛哥非常讨厌吃苹果'
+                 ]
+    test_label = [1, 0, 1, 0]
+    text_classify_try = text_classify(train_dataset=train_dataset,
+                                      test_data=test_data,
+                                      model_name='SVM',
+                                      language='Chinese')
+    result = text_classify_try.model_predict()
+    print('score:', np.sum(result == np.array(test_label)) / len(result))
+    result = pd.DataFrame({'data': test_data,
+                           'label': test_label,
+                           'predict': result},
+                          columns=['data', 'label', 'predict'])
+    print('test\n',result)
