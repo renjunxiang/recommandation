@@ -13,6 +13,15 @@ class ALS():  # recommendation similar matrix
 
     def __init__(self, R, K=2, alpha=0.0002, beta=0.02,
                  steps=5000, error=0.1):
+        '''
+        
+        :param R: 原始数据,用户-产品矩阵
+        :param K: 分解的新增维度数量
+        :param alpha: 学习率
+        :param beta: 正则项系数
+        :param steps: 迭代次数上限
+        :param error: 阈值
+        '''
         self.R = R
         self.K = K
         self.alpha = alpha

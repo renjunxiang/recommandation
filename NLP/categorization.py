@@ -13,12 +13,22 @@ class text_classify():
     def __init__(self,
                  language='English',
                  model_exist=False,
-                 model_path=None,  # 模型路径
-                 model_name='SVM',  # SVM,KNN,Logistic
-                 hashmodel='CountVectorizer',  # 哈希方式:CountVectorizer,TfidfTransformer,HashingVectorizer
+                 model_path=None,
+                 model_name='SVM',
+                 hashmodel='CountVectorizer',
                  savemodel=False,
-                 train_dataset=None,  # 训练集[[数据],[标签]]
-                 test_data=None):  # 测试集[数据]
+                 train_dataset=None,
+                 test_data=None):
+        '''
+        :param language: 语种,中文将调jieba先分词
+        :param model_exist: 模型是否存在
+        :param model_path: 模型路径
+        :param model_name: 机器学习分类模型,SVM,KNN,Logistic
+        :param hashmodel: 哈希方式:CountVectorizer,TfidfTransformer,HashingVectorizer
+        :param savemodel: 保存模型
+        :param train_dataset: 训练集[[数据],[标签]]
+        :param test_data: 测试集[数据]
+        '''
         self.language=language
         self.model_exist = model_exist
         self.model_path = model_path
@@ -128,8 +138,7 @@ if __name__ == '__main__':
     test_data = ['涛哥喜欢吃苹果',
                  '涛哥讨厌吃苹果',
                  '涛哥非常喜欢吃苹果',
-                 '涛哥非常讨厌吃苹果'
-                 ]
+                 '涛哥非常讨厌吃苹果']
     test_label = ['正面', '负面', '正面', '负面']
     text_classify_try = text_classify(train_dataset=train_dataset,
                                       test_data=test_data,
