@@ -94,6 +94,10 @@ if __name__ == '__main__':
                       'he hates apple',
                       'he really hates apple'],
                      [1, 1, 0, 0]]
+    print('train data\n',
+          pd.DataFrame({'data':train_dataset[0],
+                        'label':train_dataset[1]},
+                       columns=['data','label']))
     test_data = ['she likes apple',
                  'she really hates apple',
                  'tom likes apple',
@@ -109,10 +113,6 @@ if __name__ == '__main__':
                            'label': test_label,
                            'predict': result},
                           columns=['data', 'label', 'predict'])
-    print('train data\n',
-          pd.DataFrame({'data':train_dataset[0],
-                        'label':train_dataset[1]},
-                       columns=['data','label']))
     print('test\n',result)
 
     print('example:Chinese')
