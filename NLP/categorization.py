@@ -93,7 +93,7 @@ if __name__ == '__main__':
                       'he really likes apple',
                       'he hates apple',
                       'he really hates apple'],
-                     [1, 1, 0, 0]]
+                     ['possitive', 'possitive', 'negative', 'negative']]
     print('train data\n',
           pd.DataFrame({'data':train_dataset[0],
                         'label':train_dataset[1]},
@@ -103,7 +103,7 @@ if __name__ == '__main__':
                  'tom likes apple',
                  'tom really hates apple'
                  ]
-    test_label = [1, 0, 1, 0]
+    test_label = ['possitive', 'negative', 'possitive', 'negative']
     text_classify_try = text_classify(train_dataset=train_dataset,
                                       test_data=test_data,
                                       model_name='SVM')
@@ -120,7 +120,7 @@ if __name__ == '__main__':
                       '国王非常喜欢吃苹果',
                       '国王讨厌吃苹果',
                       '国王非常讨厌吃苹果'],
-                     [1, 1, 0, 0]]
+                     ['正面', '正面', '负面', '负面']]
     print('train data\n',
           pd.DataFrame({'data':train_dataset[0],
                         'label':train_dataset[1]},
@@ -130,7 +130,7 @@ if __name__ == '__main__':
                  '涛哥非常喜欢吃苹果',
                  '涛哥非常讨厌吃苹果'
                  ]
-    test_label = [1, 0, 1, 0]
+    test_label = ['正面', '负面', '正面', '负面']
     text_classify_try = text_classify(train_dataset=train_dataset,
                                       test_data=test_data,
                                       model_name='SVM',
