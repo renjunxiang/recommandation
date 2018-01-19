@@ -13,5 +13,6 @@ jieba=0.39<br>
 ![ex1](https://github.com/renjunxiang/machine-learning/blob/master/NLP/文本分类.png)
 ### 非监督学习：LDA.py
 利用jieba分词，将分词后的样本队词频计数存为字典，再转为dataframe形式的稀疏矩阵。队稀疏矩阵进行ALS分解，转为文本-主题矩阵*主题-词语矩阵。<br>
+![ex1](https://github.com/renjunxiang/machine-learning/blob/master/NLP/文本主题分类数据.png)
 ![ex1](https://github.com/renjunxiang/machine-learning/blob/master/NLP/文本主题分类.png)
 
