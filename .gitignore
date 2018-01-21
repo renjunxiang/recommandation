@@ -13,3 +13,4 @@ NLP/try.py
 NLP/__pycache__/sentence_transform.cpython-35.pyc
 NLP/__pycache__/__init__.cpython-35.pyc
 NLP/__pycache__/__init__.cpython-35.pyc
+*.pyc
