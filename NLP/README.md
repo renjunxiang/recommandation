@@ -19,6 +19,7 @@ jieba=0.39<br>
 ![ex2](https://github.com/renjunxiang/machine-learning/blob/master/NLP/picture/文本主题分类数据.png)
 ![ex3](https://github.com/renjunxiang/machine-learning/blob/master/NLP/picture/文本主题分类.png)
 ### 监督学习+打标签的范例：demo.py
-读取数据集NLP\data\，关键词：keyword.json，训练集train_data.json<br>，名称的配置文件config.py。然后通过supervised_classify.py对每个主题进行机器学习，再对每条文本打分。
+读取数据集NLP\data\，关键词：keyword.json，训练集train_data.json<br>，名称的配置文件config.py。然后通过supervised_classify.py对每个主题进行机器学习，再对每条文本打分。<br>
+因为没有数据，我自己随便造了几句，训练效果马马虎虎~
 ![ex4](https://github.com/renjunxiang/machine-learning/blob/master/NLP/picture/文本分类+打标签.png)
 
