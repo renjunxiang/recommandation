@@ -1,7 +1,9 @@
 import numpy as np
 import pandas as pd
 import jieba
-
+import pandas as pd
+import numpy as np
+from sentence_transform import sentence_transform
 
 class LDA():
     def __init__(self,
@@ -11,6 +13,7 @@ class LDA():
                  beta=0.02,
                  steps=500,
                  error=0.1):
+        dataset[1]=sentence_transform(train_data=dataset[1], hash=False)
         self.dataset = dataset
         self.topic_num = topic_num
         self.alpha = alpha
@@ -18,14 +21,8 @@ class LDA():
         self.steps = steps
         self.error = error
 
-    def sentence_cut(self):  # 分词并转稀疏矩阵
-        dataset = self.dataset
-        dataset[1] = pd.DataFrame([pd.Series([word for word in jieba.lcut(sample) if word != ' ']).value_counts()
-                                   for sample in dataset[1]]).fillna(0)
-        return dataset
-
     def LDA(self):  # calulate similar matrix
-        dataset = self.sentence_cut()
+        dataset = self.dataset
         topic_num = self.topic_num
         alpha = self.alpha
         beta = self.beta
