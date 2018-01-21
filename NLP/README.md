@@ -18,4 +18,7 @@ jieba=0.39<br>
 利用sentence_transform.py文本转稀疏矩阵后，对稀疏矩阵进行ALS分解，转为文本-主题矩阵*主题-词语矩阵。<br>
 ![ex2](https://github.com/renjunxiang/machine-learning/blob/master/NLP/picture/文本主题分类数据.png)
 ![ex3](https://github.com/renjunxiang/machine-learning/blob/master/NLP/picture/文本主题分类.png)
+### 监督学习+打标签的范例：demo.py
+读取数据集NLP\data\，关键词：keyword.json，训练集train_data.json<br>，名称的配置文件config.py。然后通过supervised_classify.py对每个主题进行机器学习，再对每条文本打分。
+![ex4](https://github.com/renjunxiang/machine-learning/blob/master/NLP/picture/文本分类+打标签.png)
 
