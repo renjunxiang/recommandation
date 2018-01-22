@@ -14,3 +14,8 @@ NLP/__pycache__/sentence_transform.cpython-35.pyc
 NLP/__pycache__/__init__.cpython-35.pyc
 NLP/__pycache__/__init__.cpython-35.pyc
 *.pyc
+NLP/data/demo_score/智能电视_电商_正负面.zip
+NLP/data/demo_score/电商_智能电视_正面帖_2500条.xlsx
+NLP/data/demo_score/电商_智能电视_负面帖_2500条.xlsx
+NLP/data/demo_score/data.xlsx
+NLP/data/demo_score/~$predict.xlsx
