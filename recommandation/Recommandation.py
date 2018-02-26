@@ -42,7 +42,6 @@ class Recommandation():
         product_matrix_k = self.product_matrix_k
         x=np.matrix(x)
         position = np.array(x * product_matrix_k * np.linalg.inv(s_k))[0]
-        self.user_position = position
         user_similar_list = []
         for one_user in user_matrix_k:
             one_user = np.array(one_user)[0]
@@ -51,9 +50,16 @@ class Recommandation():
         user_similar = pd.DataFrame({'user': self.users, 'similar': user_similar_list},
                                     columns=['user', 'similar'])
         self.user_similar = user_similar
+        data_full=pd.DataFrame(self.data,columns=self.products)
+        data_full['user']=self.users
+        user_similar_full=pd.merge(left=user_similar,right=data_full,how='left')
+        self.user_similar_full=user_similar_full
+        self.user_position = np.matrix(position)
         if top is not None:
             user_similar_top = user_similar.sort_values('similar', ascending=False).iloc[0:top, :]
             self.user_similar_top = user_similar_top
+            user_similar_full_top=user_similar_full.sort_values('similar', ascending=False).iloc[0:top, :]
+            self.user_similar_full_top = user_similar_full_top
 
 
 if __name__ == '__main__':
@@ -72,3 +78,5 @@ if __name__ == '__main__':
     x = np.array([5, 5, 0, 0, 0, 5])
     model.user_similar_cal(x=x,top=2)
     print(model.user_similar_top)
+    print(model.user_position*model.s_k*(model.product_matrix_k.T))
+    print(model.user_similar_full_top)
