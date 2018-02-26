@@ -40,6 +40,7 @@ class Recommandation():
         user_matrix_k = self.user_matrix_k
         s_k = self.s_k
         product_matrix_k = self.product_matrix_k
+        x=np.matrix(x)
         position = np.array(x * product_matrix_k * np.linalg.inv(s_k))[0]
         self.user_position = position
         user_similar_list = []
