@@ -47,6 +47,7 @@ class Recommandation_SVD():
         x = np.matrix(x)
         position = np.array(x * product_matrix_k * np.linalg.inv(s_k))[0]
         self.user_position = position  # 用户的空间位置
+        self.x = np.array(x)[0]
 
     def user_similarity(self, top=None, method='cosine'):
         '''
@@ -66,7 +67,8 @@ class Recommandation_SVD():
             # 计算和每个已知用户的余弦相似度
             for one_user in user_matrix_k:
                 one_user = np.array(one_user)[0]
-                cos = np.dot(user_position, one_user) / np.sqrt(np.dot(user_position, user_position) * np.dot(one_user, one_user))
+                cos = np.dot(user_position, one_user) / np.sqrt(
+                    np.dot(user_position, user_position) * np.dot(one_user, one_user))
                 user_similar_list.append(cos)
 
         else:
@@ -107,10 +109,12 @@ class Recommandation_SVD():
             distances.append(distance[0, 0])
         product_distances = pd.DataFrame({'products': self.products, 'distances': distances},
                                          columns=['products', 'distances'])
-        product_distances.aggregate
+        product_distances.index=self.products
         self.product_distances = product_distances
         if top is not None:
-            product_distances_top = product_distances.sort_values('distances', ascending=False).iloc[0:top, :]
+            x = self.x
+            recommend_index=list(np.array(self.products)[x==0])
+            product_distances_top = product_distances.loc[recommend_index, :].sort_values('distances', ascending=False).iloc[0:top, :]
             self.product_distances_top = product_distances_top
             self.product_top = list(product_distances_top['products'])
 
@@ -126,10 +130,13 @@ class Recommandation_SVD():
         recommend_score_full = pd.DataFrame({'products': self.products,
                                              'score': users_score},
                                             columns=['products', 'score'])
-        recommend_score_full = recommend_score_full.reset_index(drop=True)
-        self.recommend_score_full = recommend_score_full
-        self.recommend_score_top = recommend_score_full.sort_values('score', ascending=False).iloc[0:top, :]
-        self.recommend_top = list(self.recommend_score_top['products'])
+        recommend_score_full.index=self.products
+        if top is not None:
+            x = self.x
+            self.recommend_score_full = recommend_score_full
+            recommend_index=list(np.array(self.products)[x==0])
+            self.recommend_score_top = recommend_score_full.loc[recommend_index, :].sort_values('score', ascending=False).iloc[0:top, :]
+            self.recommend_top = list(self.recommend_score_top['products'])
 
 
 if __name__ == '__main__':
@@ -150,7 +157,7 @@ if __name__ == '__main__':
 
     # 计算位置坐标
     model.user_position(x=x)
-    model.user_similarity(top=2, method='cosine')#'Euclidean'
+    model.user_similarity(top=2, method='cosine')  # 'Euclidean'
     # print(model.user_similar_top)
     print('相似用户top2的清单：\n', model.user_similar_full_top)
 
