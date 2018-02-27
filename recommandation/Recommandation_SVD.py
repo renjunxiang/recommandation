@@ -59,20 +59,19 @@ class Recommandation_SVD():
         :return: 
         '''
         user_matrix_k = self.user_matrix_k
-        position = self.user_position
+        user_position = self.user_position
 
         user_similar_list = []
         if method == 'cosine':
             # 计算和每个已知用户的余弦相似度
             for one_user in user_matrix_k:
                 one_user = np.array(one_user)[0]
-                cos = np.dot(position, one_user) / np.sqrt(np.dot(position, position) * np.dot(one_user, one_user))
+                cos = np.dot(user_position, one_user) / np.sqrt(np.dot(user_position, user_position) * np.dot(one_user, one_user))
                 user_similar_list.append(cos)
 
         else:
             # 计算和每个已知用户的欧氏距离
             for one_user in user_matrix_k:
-                one_user = np.array(one_user)[0]
                 distance = (user_position - one_user) * (user_position - one_user).T
                 user_similar_list.append(distance[0, 0])
 
@@ -116,6 +115,11 @@ class Recommandation_SVD():
             self.product_top = list(product_distances_top['products'])
 
     def recommend_by_users(self, top=3):
+        '''
+        通过已知用户的加权求和，计算最近的产品
+        :param top: 
+        :return: 
+        '''
         user_similar_full = self.user_similar_full
         users_score = (user_similar_full.iloc[:, 2:].T * user_similar_full.iloc[:, 1]).T
         users_score = users_score.agg(sum, axis=0)
@@ -137,6 +141,7 @@ if __name__ == '__main__':
     ]
     users = ['user1', 'user2', 'user3', 'user4']
     products = ['product1', 'product2', 'product3', 'product4', 'product5', 'product6']
+
     model = Recommandation_SVD(data=data,
                                users=users,
                                products=products)
@@ -145,7 +150,7 @@ if __name__ == '__main__':
 
     # 计算位置坐标
     model.user_position(x=x)
-    model.user_similarity(top=2, method='cosine')
+    model.user_similarity(top=2, method='cosine')#'Euclidean'
     # print(model.user_similar_top)
     print('相似用户top2的清单：\n', model.user_similar_full_top)
 
