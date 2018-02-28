@@ -1,7 +1,7 @@
 ﻿# recommandation
 [![](https://img.shields.io/badge/Python-3.5-blue.svg)](https://www.python.org/)<br>
-[![](https://img.shields.io/badge/pandas-0.21.0-brightgreen.svg)](https://pypi.python.org/pypi/pandas/0.21.0)
-[![](https://img.shields.io/badge/numpy-1.13.1-brightgreen.svg)](https://pypi.python.org/pypi/numpy/1.13.1)
+[![](https://img.shields.io/badge/pandas-0.21.0-brightgreen.svg)](https://pypi.python.org/pypi/pandas/)
+[![](https://img.shields.io/badge/numpy-1.13.1-brightgreen.svg)](https://pypi.python.org/pypi/numpy/)
 [![](https://img.shields.io/badge/pyspark-1.6.1-brightgreen.svg)](https://pypi.python.org/pypi/pyspark/)
 ## 语言
 Python3.5<br>
